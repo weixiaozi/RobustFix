@@ -30,8 +30,8 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 dependencies {
-//    compile 'com.meituan.robust:autopatchbase:' + VERSION_NAME
-    compile project(':autopatchbase')
+//    implementation 'com.meituan.robust:autopatchbase:' + VERSION_NAME
+    implementation project(':autopatchbase')
 }
 
 apply from: '../gradle_mvn_push.gradle'
