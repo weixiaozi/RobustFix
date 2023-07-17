@@ -31,8 +31,11 @@ public class PatchTemplate implements ChangeQuickRedirect {
     private static Object fixObj(Object booleanObj) {
         if (booleanObj instanceof Byte) {
             byte byteValue = (Byte) booleanObj;
-            boolean booleanValue = byteValue != 0x00;
-            return new Boolean(booleanValue);
+            if (byteValue != 0x00) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
         }
         return booleanObj;
     }

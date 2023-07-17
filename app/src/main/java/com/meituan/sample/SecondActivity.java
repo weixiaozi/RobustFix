@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meituan.robust.patch.annotaion.Add;
-import com.meituan.robust.patch.annotaion.Modify;
+//import com.meituan.robust.patch.annotaion.Add;
+//import com.meituan.robust.patch.annotaion.Modify;
 
 import java.lang.reflect.Field;
 
@@ -52,7 +52,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
 //        return "error fixed";
     }
 
-    @Add
+//    @Add
     public String[] getArray() {
        return new String[]{"hello","world"};
     }
