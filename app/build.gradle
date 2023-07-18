@@ -1,5 +1,19 @@
+buildscript {
+    repositories {
+        mavenLocal()   // For local testing
+        google()       // For the Android Gradle plugin.
+        mavenCentral() // For the ProGuard Gradle Plugin and anything else.
+    }
+    dependencies {
+        classpath 'com.guardsquare:proguard-gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.0.0'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.guardsquare.proguard'
 apply plugin: 'kotlin-android'
+
 
 //apply plugin: 'auto-patch-plugin'
 //apply plugin: 'robust'
@@ -30,15 +44,15 @@ android {
     }
     buildTypes {
         release {
-//            minifyEnabled false
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.meituan
+            minifyEnabled false
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.meituan
         }
         debug {
-            minifyEnabled true
-//            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled true
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -55,12 +69,14 @@ android {
         exclude 'META-INF/maven/commons-cli/commons-cli/pom.xml'
     }
 }
+
 configurations {
     all*.exclude group: 'com.google.guava', module: 'guava'
 }
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
+
 dependencies {
     api 'com.google.code.gson:gson:2.7'
     api 'com.squareup.picasso:picasso:2.5.2'
@@ -73,4 +89,13 @@ dependencies {
     api 'org.javassist:javassist:3.20.0-GA'
     api project(path: ':patch')
 //    api 'com.meituan.robust:robust:0.4.99'
+}
+
+proguard {
+    configurations {
+        release {
+            defaultConfiguration 'proguard-android-optimize.txt'
+            configuration 'proguard-project.txt'
+        }
+    }
 }
